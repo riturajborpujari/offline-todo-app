@@ -1,0 +1,45 @@
+.todo {
+  padding: 24px;
+  display: flex;
+
+  align-items: flex-start;
+}
+
+.todo:hover {
+  background-color: #b5d6ec;
+  cursor: pointer;
+}
+
+.todo_title {
+  margin: 0;
+}
+
+.todo_description {
+  padding: 4px 0;
+  margin: 8px 0 0 0;
+}
+
+.todo_date {
+  font-size: small;
+  font-style: italic;
+}
+
+.todo_checked_icon, .todo_delete_icon {
+  display: block;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+.todo_delete_icon:hover {
+  background-color: rgb(218, 96, 96);
+  color: #FFF;
+}
+
+.todo_checked_icon:hover {
+  background-color: #d82;
+}

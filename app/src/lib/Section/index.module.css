@@ -1,0 +1,35 @@
+.section {
+  padding: 48px;
+
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+.head{
+  display: flex;
+  align-items: flex-start;
+
+  border-bottom: 1px solid #DDD;
+}
+
+.content{
+  margin: 48px 0 0 48px;
+}
+
+.section:not(:last-child){
+  margin-bottom: 8px;
+}
+
+.title{
+  margin: 8px 0;
+  font-size: xx-large;
+}
+
+.icon{
+  padding-top: 12px;
+  margin-right: 16px;
+}
+
+.icon svg{
+  font-size: 32px;
+}

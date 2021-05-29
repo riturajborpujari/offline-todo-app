@@ -1,0 +1,27 @@
+.root{
+  height: 100vh;
+  background-color: #FFF;
+}
+
+.header{
+  height: 64px;
+  padding: 0 24px;
+  border-bottom: 1px solid #DDD;
+  display: flex;
+  align-items: center;
+
+  color: #194ad1;
+  font-size: small;
+}
+
+.content{
+  max-width: 1024px;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 32px;
+}
+.logo{
+  margin-right: 8px;
+  color: #194ad1;
+}

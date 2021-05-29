@@ -1,0 +1,36 @@
+.form_field {
+  padding: 8px 0 16px 0;
+
+  display: flex;
+  width: 100%;
+}
+
+.form_field input, .form_field textarea{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  
+  min-width: 70%;
+  max-width: 70%;
+  width: 70%;
+
+  border: 1px solid #DDD;
+  border-radius: 4px;
+
+  padding: 8px;
+}
+
+.form_field textarea{
+  max-height: 130px;
+  min-height: 130px;
+  height: 130px;
+}
+
+.label{
+  margin-top: 8px;
+
+  font-size: medium;
+  display: block;
+
+  min-width: 120px;
+  width: 30%;
+}
