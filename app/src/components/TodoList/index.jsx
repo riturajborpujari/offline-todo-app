@@ -50,7 +50,7 @@ export default function TodoList() {
 
   return (
     <Section
-      title={`Todos (${data.aggregate ? data.aggregate.todo.count : ''})`}
+      title={`Todos (${data && (data.aggregate ? data.aggregate.todo.count : '')})`}
       description='All the things you have to do'
       icon={
         <Icon
