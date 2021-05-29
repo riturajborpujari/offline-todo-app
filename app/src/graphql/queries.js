@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const LIST_TODOS = gql`
   query LIST_TODOS($filters:todo_bool_exp $offset: Int $limit:Int){
-    todos:todo(where:$filters offset: $offset limit:$limit order_by: {created_at: desc}){
+    todos: todo(where:$filters offset: $offset limit:$limit order_by: {created_at: desc}){
       __typename
       id
       title

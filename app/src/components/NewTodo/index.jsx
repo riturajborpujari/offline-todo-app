@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
+import { v4 as uuidv4 } from 'uuid';
 
 import { BiTask as TaskIcon } from '@react-icons/all-files/bi/BiTask';
 
@@ -24,43 +25,53 @@ export default function NewTodo() {
         fields: {
           todo(existingTodos = []) {
             const newTodoRef = cache.writeFragment({
-              data: { ...todo, ...values },
+              data: todo,
               fragment: gql`
                 fragment NewTodo on Todo {
                   id
-                  title
-                  description
-                  checked
-                  created_at
                 }
               `
             });
 
             return [...existingTodos, newTodoRef];
           },
-          todo_aggregate(count) {
-            return { ...count, aggregate: { ...count.aggregate, count: count.aggregate.count + 1 } };
+          todo_aggregate(aggregate) {
+            const up = {
+              __typename: 'todo_aggregate',
+              aggregate: {
+                __typename: 'todo_aggregate_fields',
+                count: aggregate.aggregate.count + 1
+              }
+            };
+            return up;
           }
         }
       });
-    },
-    optimisticResponse: {
-      todo: {
-        __typename: 'todo',
-        id: 'temp_id'
-      }
     }
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
+    const optimisticResponse = {
+      todo: {
+        __typename: 'todo',
+        id: uuidv4(),
+        ...values
+      }
+    };
 
-    addTodo({ variables: { todo: values } })
-      .then(_ => {
+    console.log('Optimistic response: ', optimisticResponse);
+
+    addTodo({
+      variables: { todo: values },
+      optimisticResponse
+    })
+      .then(({ data, errors }) => {
+        console.log('Add todo response: ', { data, errors });
         resetForm();
       })
       .catch(err => {
-        console.log('Error: ', err);
+        console.log('Add todo Error: ', err);
       })
   }
   return (

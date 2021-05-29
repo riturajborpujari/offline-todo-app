@@ -5,6 +5,10 @@ export const ADD_TODO = gql`
     todo: insert_todo_one(object:$todo){
       __typename
       id
+      title
+      description
+      checked
+      created_at
     }
   }
 `;
