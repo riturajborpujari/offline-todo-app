@@ -43,6 +43,12 @@ export default function NewTodo() {
           }
         }
       });
+    },
+    optimisticResponse: {
+      todo: {
+        __typename: 'todo',
+        id: 'temp_id'
+      }
     }
   });
 
