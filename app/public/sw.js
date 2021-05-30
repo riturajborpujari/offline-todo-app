@@ -26,15 +26,20 @@ self.addEventListener('fetch', (e) => {
   else {
     e.respondWith((async () => {
       const r = await caches.match(e.request);
+
       console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
       if (r) return r;
 
       const response = await fetch(e.request);
 
-      const cache = await caches.open(CACHE_NAME);
-      console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      
+      /** Cache if this is a HTTP request */
+      const httpUrl = /^http[s]{0,1}:\/\//;
+      if (httpUrl.test(e.request.url)) {
+        const cache = await caches.open(CACHE_NAME);
+        console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+        cache.put(e.request, response.clone());
+      }
+
       return response;
     })());
   }
