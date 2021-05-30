@@ -15,7 +15,8 @@ export default function TodoList() {
   const [todo_delete_id, SetTodoForDeletion] = useState(null);
   const [todo_update, SetTodoForUpdate] = useState({ id: null, checked: false });
 
-  const { error, loading, data } = useQuery(LIST_TODOS);
+  const { error, loading, data } = useQuery(LIST_TODOS, { fetchPolicy: 'cache-and-network' });
+  
   const [updateTodoCheckState] = useMutation(UPDATE_TODO_CHECK_STATE);
   const [removeTodo] = useMutation(REMOVE_TODO, {
     update(cache, { data: { result } }) {
