@@ -60,8 +60,6 @@ export default function NewTodo() {
       }
     };
 
-    console.log('Optimistic response: ', optimisticResponse);
-
     addTodo({
       variables: { todo: values },
       optimisticResponse
