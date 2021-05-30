@@ -53,6 +53,6 @@ export default function GetUpdateFunctionByName(name) {
     case 'REMOVE_TODO':
       return REMOVE_TODO;
     default:
-      throw new Error('Unknown update handler requested');
+      return null;
   }
 }
