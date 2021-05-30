@@ -13,15 +13,6 @@ export const ADD_TODO = gql`
   }
 `;
 
-export const UPDATE_TODO = gql`
-  mutation UPDATE_TODO($id:bigint! $update:todo_set_input!){
-    todo: update_todo_by_pk(pk_columns:{id: $id} _set:$update){
-      __typename
-      id
-    }
-  }
-`;
-
 export const UPDATE_TODO_CHECK_STATE = gql`
   mutation UPDATE_TODO_CHECK_STATE($id:bigint! $checked:Boolean!){
     todo: update_todo_by_pk(pk_columns:{id: $id} _set:{checked: $checked}){
