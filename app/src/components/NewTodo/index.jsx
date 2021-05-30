@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { v4 as uuidv4 } from 'uuid';
 
 import { BiTask as TaskIcon } from '@react-icons/all-files/bi/BiTask';
@@ -10,6 +10,7 @@ import ActionArea from "../../lib/Form/ActionArea";
 import FormField from "../../lib/Form/FormField";
 import Section from "../../lib/Section";
 import useForm from "../../utils/useForm";
+import GetUpdateFunctionByName from '../../graphql/updateFunctions';
 
 export default function NewTodo() {
   const { values, onChange, resetForm } = useForm({
@@ -20,34 +21,7 @@ export default function NewTodo() {
   });
 
   const [addTodo] = useMutation(ADD_TODO, {
-    update(cache, { data: { todo } }) {
-      cache.modify({
-        fields: {
-          todo(existingTodos = []) {
-            const newTodoRef = cache.writeFragment({
-              data: todo,
-              fragment: gql`
-                fragment NewTodo on Todo {
-                  id
-                }
-              `
-            });
-
-            return [...existingTodos, newTodoRef];
-          },
-          todo_aggregate(aggregate) {
-            const up = {
-              __typename: 'todo_aggregate',
-              aggregate: {
-                __typename: 'todo_aggregate_fields',
-                count: aggregate.aggregate.count + 1
-              }
-            };
-            return up;
-          }
-        }
-      });
-    }
+    update: GetUpdateFunctionByName('ADD_TODO')
   });
 
   const handleSubmit = async e => {
@@ -64,13 +38,13 @@ export default function NewTodo() {
       variables: { todo: values },
       optimisticResponse
     })
-      .then(({ data, errors }) => {
-        console.log('Add todo response: ', { data, errors });
+      .then(() => {
         resetForm();
       })
       .catch(err => {
         console.log('Add todo Error: ', err);
       })
+
   }
   return (
     <Section

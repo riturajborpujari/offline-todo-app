@@ -10,31 +10,17 @@ import Todo from '../Todo';
 import styles from './index.module.css';
 import Icon from '../../lib/Icon';
 import { useEffect, useState } from 'react';
+import GetUpdateFunctionByName from '../../graphql/updateFunctions';
 
 export default function TodoList() {
   const [todo_delete_id, SetTodoForDeletion] = useState(null);
   const [todo_update, SetTodoForUpdate] = useState({ id: null, checked: false });
 
-  const { error, loading, data } = useQuery(LIST_TODOS, { fetchPolicy: 'cache-and-network' });
-  
+  const { error, loading, data } = useQuery(LIST_TODOS);
+
   const [updateTodoCheckState] = useMutation(UPDATE_TODO_CHECK_STATE);
   const [removeTodo] = useMutation(REMOVE_TODO, {
-    update(cache, { data: { result } }) {
-      cache.modify({
-        fields: {
-          todo(existingTodos = []) {
-            const deletedRef = `todo:${result.id}`;
-            const newTodos = existingTodos.filter(item => item.__ref !== deletedRef);
-
-            return newTodos;
-          },
-          todo_aggregate(count) {
-            return { ...count, aggregate: { ...count.aggregate, count: count.aggregate.count - 1 } };
-          }
-        }
-      });
-    },
-
+    update: GetUpdateFunctionByName('REMOVE_TODO')
   })
 
   useEffect(() => {
