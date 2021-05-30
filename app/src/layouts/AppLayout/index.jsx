@@ -7,7 +7,7 @@ export default function AppLayout({children}) {
     <div className={styles.root}>
       <header className={styles.header}>
         <TaskIcon fontSize={32} className={styles.logo}/>
-        <h1>Task Manager</h1>
+        <h1>Todo Manager</h1>
       </header>
 
       <div className={styles.content}>
